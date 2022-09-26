@@ -1,8 +1,6 @@
-import { click } from "@testing-library/user-event/dist/click";
 import React, { useState } from "react";
 import "./App.css";
 import Square from "./components/Square";
-
 const App = () => {
   const [board, setBoard] = useState([
     "?",
@@ -15,25 +13,27 @@ const App = () => {
     "?",
     "?",
   ]);
-
   const [treasureLocation, setTreasureLocation] = useState(
     Math.floor(Math.random() * board.length)
   );
   const [bombLocation, setBombLocation] = useState(
     Math.floor(Math.random() * board.length)
   );
-
   const handleGamePlay = (clickedSquare) => {
-    // makes a copy of the board in state so that we can modify it in this method
+    // reassigns bomb location if it matches the treasure location
+    if (bombLocation === treasureLocation) {
+      setBombLocation(Math.floor(Math.random() * board.length));
+    }
+    //create a copy of the board
     let updateBoard = [...board];
     if (clickedSquare === treasureLocation) {
-      updateBoard[clickedSquare] = "👑";
+      updateBoard[clickedSquare] = "💰";
       setBoard(updateBoard);
     } else if (clickedSquare === bombLocation) {
-      updateBoard[clickedSquare] = "💣";
+      updateBoard[clickedSquare] = "🤯";
       setBoard(updateBoard);
     } else {
-      updateBoard[clickedSquare] = "🌳";
+      updateBoard[clickedSquare] = "🧠";
       setBoard(updateBoard);
     }
   };
@@ -44,20 +44,14 @@ const App = () => {
     setBombLocation(Math.floor(Math.random() * board.length));
   };
 
-  console.log(
-    "treasureLocation:",
-    treasureLocation,
-    "bombLocation:",
-    bombLocation
-  );
   return (
-    <>
+    <div className="App">
       <h1>Treasure Hunt Game</h1>
-      <div className="game_container">
-        {board.map((square, index) => {
+      <div className="board">
+        {board.map((space, index) => {
           return (
             <Square
-              square={square}
+              boardPiece={space}
               index={index}
               key={index}
               handleGamePlay={handleGamePlay}
@@ -65,9 +59,10 @@ const App = () => {
           );
         })}
       </div>
-      <button onClick={handleReset}>Restart Game</button>
-    </>
+      <button className="btn" onClick={handleReset}>
+        Reset Game
+      </button>
+    </div>
   );
 };
-
 export default App;

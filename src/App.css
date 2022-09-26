@@ -2,17 +2,38 @@ h1 {
   text-align: center;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: salmon;
+  color: white;
+}
+
 .square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 200px;
   width: 200px;
   border: 1px solid black;
   font-size: 11rem;
-  text-align: center;
+  font-weight: bold;
+  background-color: cornflowerblue;
+  color: rgb(55, 55, 163);
 }
 
-.board-game {
+.board {
   display: flex;
   flex-wrap: wrap;
-  width: 610px;
-  margin: 0 auto;
+  width: 606px;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+.btn {
+  font-size: 2rem;
+  border-radius: 6px;
 }
